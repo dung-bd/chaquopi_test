@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.storage.CacheResetOnProcessCanceled.enabled
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -39,12 +41,25 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 chaquopy {
     defaultConfig {
-        version = "3.11"
-        buildPython("C:/Users/Admin/AppData/Local/Programs/Python/Python311/python.exe")
+        version = "3.8"
+        buildPython("C:/Users/Admin/AppData/Local/Programs/Python/Python38/python.exe")
+//        buildPython("C:/Users/Admin/AppData/Local/Programs/Python/Python311/python.exe")
+        pip {
+            install("numpy")
+            install("pillow")
+            install("matplotlib")
+            install("soundfile")
+            install("resampy==0.3.1")
+            install("librosa==0.9.0")
+        }
     }
     productFlavors { }
     sourceSets {
@@ -60,7 +75,9 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.8.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
 }
